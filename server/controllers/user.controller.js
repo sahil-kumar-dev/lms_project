@@ -12,7 +12,6 @@ const register = async (req, res) => {
 	const { fullName, email, password } = req.body;
 	console.log(fullName,email,password);
 
-
 	try {
 		if (!fullName || !email || !password) {
 			return res.status(400).json({
@@ -36,6 +35,7 @@ const register = async (req, res) => {
 			email,
 			password
 		})
+
 		if (!user) {
 			return res.status(400).json({
 				success: false,
@@ -49,8 +49,10 @@ const register = async (req, res) => {
 		user.password = undefined;
 	
 		const token = await user.generateJWTToken()
-	
-		res.cookie('token', token, cookieOptions)
+		
+		console.log(token);
+
+		res.cookies('token', token, cookieOptions)
 	
 		return res.status(201).json({
 			success: true,
@@ -58,15 +60,12 @@ const register = async (req, res) => {
 			data: user
 		})
 	
-		// ret
 	} catch (error) {
-		return res.status(501).send({msg:error.message})
+		return res.status(501).json({
+			success:false,
+			message:error.message
+		})
 	}
-
-// urn res.status(400).json({
-	// 	success: false,
-	// 	message: error.message
-	// })
 
 }
 
