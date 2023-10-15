@@ -48,18 +48,21 @@ userSchema.pre('save', async function (next) {
 	if (!this.isModified('password')) {
 		return next()
 	}
-	this.password = bcrypt.hash(this.password, 10)
+	this.password = await bcrypt.hash(this.password, 10)
 })
 
 
 userSchema.methods = {
-	generateJWTToken: async function () {
-		return await jwt.sign(
+	generateJWTToken: function () {
+		return jwt.sign(
 			{ id: this._id, email: this.email, subscription: this.subscription },
 			"secret",
 			{ expiresIn: '24hr' }
 
 		)
+	},
+	comparePassword: async function (pass) {
+		return await bcrypt.compare(pass, this.password)
 	}
 }
 const User = model('User', userSchema)
