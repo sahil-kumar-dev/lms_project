@@ -5,9 +5,9 @@ import cloudnary from 'cloudinary'
 const PORT = process.env.PORT || 5050;
 
 cloudnary.v2.config({
-	cloud_name:'dh48phjnt',
-	api_key:'764245472864325',
-	api_secret:'OK0b2TwpfFKEzU_6xUR8gTNpct0'
+	cloud_name:process.env.CLOUD_NAME,
+	api_key:process.env.CLOUD_API_KEY,
+	api_secret:process.env.CLOUD_SECRET
 })
 
 app.listen(PORT, async () => {

@@ -282,7 +282,7 @@ const changePassword = async (req,res) =>{
 		})
 	}
 
-	user.password - newPassword
+	user.password = newPassword
 
 	await user.save()
 
@@ -292,8 +292,39 @@ const changePassword = async (req,res) =>{
 		success:true,
 		message:"Password changed successfully."
 	})
-
-
 }
 
-export { getProfile, login, logout, register, forgotPassword, resetPassword , changePassword };
+// const updateUser = (req,res) =>{
+
+// 	const {fullName} = req.body
+
+// 	const {id} = req.user.id
+
+// 	const user = User.findById(id)
+
+// 	if(!user){
+// 		return res.status(500).json({
+// 			success:false,
+// 			message:"User does not exists."
+// 		})
+// 	}
+
+// 	if(req.fullName){
+// 		user.fullName = fullName
+// 	}
+
+// 	if(req.file){
+// 		await 
+// 	}
+
+// }
+
+export { 
+	getProfile,
+	login, 
+	logout, 
+	register, 
+	forgotPassword, 
+	resetPassword, 
+	changePassword
+};
