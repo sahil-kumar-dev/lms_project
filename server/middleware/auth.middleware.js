@@ -17,4 +17,22 @@ const isLoggedIn = async (req,res,next) =>{
 	next()
 }
 
-export default isLoggedIn
+const authorizedRoles = (...roles) => async (req,res,next) =>{
+	
+	const currentRoles = req.user.roles
+
+	if(!roles.includes(currentRoles)){
+		return res.status(403).json({
+			success:false,
+			message:"You do not have to acces this course."
+		})
+	}
+
+	next()
+}
+
+
+export {
+	isLoggedIn,
+	authorizedRoles
+}
